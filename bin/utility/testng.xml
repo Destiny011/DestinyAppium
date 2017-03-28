@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite thread-count="5" verbose="1" name="Failed suite [testng]" parallel="false" annotations="JDK5">
+  <test name="config.DongDongkeyword(failed)" junit="false" parallel="false" annotations="JDK5">
+    <classes>
+      <class name="config.DongDongkeyword">
+        <methods>
+          <include name="providerMethod"/>
+          <include name="Dongdongtest"/> 
+          <include name="setUp"/>
+          <include name="tearDown"/>
+          <include name="beforeMethod"/>
+          <include name="afterMethod"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+</suite>
