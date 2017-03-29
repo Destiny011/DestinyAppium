@@ -171,7 +171,7 @@ DesiredCapabilities capabilities = new DesiredCapabilities();
 capabilities.setCapability("deviceName", "iPhone 5s");
 capabilities.setCapability("platformVersion", "10.1");
 capabilities.setCapability("platformName", "iOS");
-capabilities.setCapability("bundleId", "com.szhome.DongDong");
+capabilities.setCapability("bundleId", "com.app.ng");
 capabilities.setCapability("locationServicesAuthorized", true);
 capabilities.setCapability("waitForAppScript", "$.delay(5000); $.acceptAlert(); true;");
 capabilities.setCapability("app", "*****");

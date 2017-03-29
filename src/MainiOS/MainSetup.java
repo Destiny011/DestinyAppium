@@ -50,10 +50,10 @@ public class MainSetup {
         capabilities.setCapability("deviceName", "iPhone 5s");
         capabilities.setCapability("platformVersion", "10.1");
         capabilities.setCapability("platformName", "iOS");
-        capabilities.setCapability("bundleId", "com.szhome.DongDong");
+        capabilities.setCapability("bundleId", "com.cc.cc");
         capabilities.setCapability("locationServicesAuthorized", true);
         capabilities.setCapability("waitForAppScript", "$.delay(5000); $.acceptAlert(); true;");
-        capabilities.setCapability("app", "/Users/zhangzhixiong/项目/DongDongProject_iOS/DongDong_IOS/Build/Products/Debug-iphoneos/DongDong.app");
+        capabilities.setCapability("app", "*****");
         capabilities.setCapability("autoAcceptAlerts", false);
         capabilities.setCapability("udid", "b5109a245a39d8eef252ee75887badfe26c4a9f2");
         //b5109a245a39d8eef252ee75887badfe26c4a9f2
@@ -61,7 +61,7 @@ public class MainSetup {
         capabilities.setCapability("logLevel", "DEBUG");
         capabilities.setCapability("automationName", "XCUITest");  // 新的IOS10
         driver=new IOSDriver(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
-        System.out.println("启动知乎app成功");
+        System.out.println("启动程序app成功");
 
         //driveriver 传入appiumauto类
         appiumAuto.driver = driver;
