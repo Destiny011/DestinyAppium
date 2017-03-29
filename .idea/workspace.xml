@@ -2,35 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="07c35464-a87a-485b-a3cc-84cad9ab7b8f" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/apache_mime4j_0_6.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/jar/bsh-2.0b4.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/jar/commons-codec-1.9.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/jar/commons-logging-1.2.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/jar/fastjson-1.2.15.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/jar/hamcrest-core-1.3.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/jar/hamcrest-library-1.2.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/jar/httpclient-4.5.2.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/jar/httpcore-4.4.4.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/jar/jcommander-1.48.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/jar/macacaclient-1.0.46.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/jar/mysql-connector-java-5.1.7-bin.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/poi/commons-codec-1.5.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/poi/commons-logging-1.1.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/poi/junit-4.11.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/poi/log4j-1.2.13.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/poi/poi-3.10-FINAL-20140208.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/poi/poi-examples-3.10-FINAL-20140208.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/poi/poi-excelant-3.10-FINAL-20140208.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/poi/poi-ooxml-3.10-FINAL-20140208.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/poi/poi-ooxml-schemas-3.10-FINAL-20140208.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/poi/poi-scratchpad-3.10-FINAL-20140208.jar" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/MainiOS/DistriTest.java" afterPath="$PROJECT_DIR$/src/MainiOS/DistriTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cn/jk/RetryListener.java" afterPath="$PROJECT_DIR$/src/cn/jk/RetryListener.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/cn/jk/TestngRetry.java" afterPath="$PROJECT_DIR$/src/cn/jk/TestngRetry.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/traverse/appiumAuto.java" afterPath="$PROJECT_DIR$/src/traverse/appiumAuto.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/traverse/ement.java" afterPath="$PROJECT_DIR$/src/traverse/ement.java" />
     </list>
     <ignored path="DestinyAppium2.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -208,8 +180,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="98" />
-    <option name="y" value="57" />
+    <option name="x" value="222" />
+    <option name="y" value="794" />
     <option name="width" value="1873" />
     <option name="height" value="1057" />
   </component>
@@ -781,16 +753,16 @@
       <created>1490755631585</created>
       <option name="number" value="Default" />
       <updated>1490755631585</updated>
-      <workItem from="1490755632700" duration="673000" />
+      <workItem from="1490755632700" duration="922000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="673000" />
+    <option name="totallyTimeSpent" value="922000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="98" y="57" width="1873" height="1057" extended-state="0" />
-    <editor active="true" />
+    <frame x="222" y="794" width="1873" height="1057" extended-state="0" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -802,7 +774,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24041452" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24959038" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24959038" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />

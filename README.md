@@ -36,7 +36,7 @@
 
 #### 逻辑图
 
-![模块遍历入口](/Users/zhangzhixiong/Desktop/模块遍历入口.png)
+![模块遍历入口](/Users/zhangzhixiong/项目/DestinyAppium2/imge/模块遍历入口.png)
 
 ##### 参数设置
 
@@ -233,4 +233,4 @@ public static String cyrPatn = "/Users/xxxx/Documents/AppiumPng";
         FileOperation.createDir(MainSetup.cyrPatn);
 ```
 
-本人代码能力不是很强—有很多重复的代码请大家见谅。。可能我的程序并不一定适合；希望大家能够给我更好的启发，然后让我去修复更深入的学习这些JAVA知识；
+本人代码能力不是很强—有很多重复的代码请大家见谅...
