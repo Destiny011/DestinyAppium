@@ -4,7 +4,7 @@
 
 ---
 
-​	基于appium编写的自动化测试工具，通过获取driver.getPageSource()日志内容进行解析出StaticText/button/imge/TextField 进行简单的点击/清空/写入操作，主要是学习遍历程序逻辑思维；
+​	基于appium编写的自动化测试工具，通过获取driver.getPageSource()日志内容进行解析出StaticText/button/imge/TextField 进行简单的点击/清空/写入操作，主要是学习遍历程序逻辑思维，都是通过坐标点击事件操作；
 
 #### 解决
 
@@ -152,11 +152,11 @@ switch (lister.get(i)) {
    case "XCUIElementTypeImage":
       XCUIElemTypeImage(listerpath.get(i));
       break;
-   //根据列表的 TextField 控件做点击事件
+   //根据列表的 TextField 控件做写入事件
    case  "XCUIElementTypeTextField":
       XCUIElemTextField(listerpath.get(i));
       break;
-   //根据列表的 TextView 控件做点击事件
+   //根据列表的 TextView 控件做写入事件
    case "XCUIElementTypeTextView":
       XCUIElemTextField(listerpath.get(i));
       break;
@@ -232,5 +232,31 @@ public static String cyrPatn = "/Users/xxxx/Documents/AppiumPng";
         //创建目录
         FileOperation.createDir(MainSetup.cyrPatn);
 ```
+
+##### 测试框架
+
+我用的是testng框架  需要登录引导图什么自己建测试类写
+
+
+
+#### 缺点
+
+1、点击手速真的很慢...
+
+2、比如A界面跳转到B B跳转C界面 —B自动销毁—然后遍历就没法回去—我直接屏蔽这个按钮；
+
+3、没有保存错误日志(后续研究)
+
+4、有个别返回按钮没有名称只有路径和坐标—我直接屏蔽点击这个东西
+
+
+
+## 后续
+
+1、获取日志：通过终端获取https://testerhome.com/topics/8060
+
+2、修改日志为log4j-优化下代码看重复代码怎么优化
+
+
 
 本人代码能力不是很强—有很多重复的代码请大家见谅...

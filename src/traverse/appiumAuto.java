@@ -554,11 +554,11 @@ public static void listNodes(Element node) throws Exception {
 			case "XCUIElementTypeImage":
 				XCUIElemTypeImage(listerpath.get(i));
 				break;
-			//根据列表的 TextField 控件做点击事件
+			//根据列表的 TextField 控件做写入事件
 			case  "XCUIElementTypeTextField":
 				XCUIElemTextField(listerpath.get(i));
 				break;
-			//根据列表的 TextView 控件做点击事件
+			//根据列表的 TextView 控件做写入事件
 			case "XCUIElementTypeTextView":
 				XCUIElemTextField(listerpath.get(i));
 				break;
