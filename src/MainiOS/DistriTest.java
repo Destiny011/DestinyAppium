@@ -13,7 +13,7 @@ import traverse.similarityResult;
 
 public class DistriTest {
     public static int Waitsleep = 5000;
-    public static String xmll="",xmlle="",xmllle="",path="",xmlll="";
+    public static String xmll="",xmlle="",xmllle="",path="";
     public static boolean gock = true;
 
 
@@ -81,7 +81,6 @@ public class DistriTest {
         //添加遍历出来的整个列表内容
         appiumAuto.Titlelist.add(xmll);
         FileOperation.contentToTxt(MainSetup.filetext, "遍历所有的元素节点");
-        xmlll= xmllle;
         xmllle = xmlle;
         xmlle = path;
         appiumAuto.gock = false;

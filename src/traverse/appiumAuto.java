@@ -8,13 +8,11 @@ import org.dom4j.Attribute;
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
-import org.openqa.selenium.By;
+import org.openqa.selenium.*;
 
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.Point;
 import MainiOS.DistriTest;
 import io.appium.java_client.ios.IOSDriver;
+import org.openqa.selenium.NoSuchElementException;
 
 public class appiumAuto {
 	 public static IOSDriver driver;
@@ -53,27 +51,23 @@ public class appiumAuto {
 	 public static ArrayList<String> Coorlist = new ArrayList<>();
 	 //遍历时屏蔽的按钮--黑名单
 	 public static List<String> listll = Arrays.asList(
-			 //屏蔽返回按钮
-			 "Nav Back White","Nav More","Nav Back","返回","取消","DDSigninCloseBtn",
-             "Nav Back Red","Topic NavBack WhiteIcon","Topic NavBack WhiteShadowIcon",
-			 "Nav Close",
 			 //搜索按钮
 			 "Dynamic Message SearchBar Icon","TopLine SearchBar White Icon","Message SearchIcon", "Message SearchBar Icon",
 			 "DDCircle SearchIcon White",
 			 //发现群
 			 "DongCircleSearch addButton",
-			 //测试屏蔽模块
-
 			 //屏蔽图片下载
 			 "MW Download Icon",
 			 //系统的图片/拍摄
 			 "Chat ToolBar Add","相册",
 			 //屏蔽 个人中心 相同功能的按钮  会点击两次的页面
-             "退出登录","手机号","昵称","获取验证码","密码","语音验证","简介：",
+             "退出登录","手机号","昵称","获取验证码","密码","语音验证","简介：","修改",
 			 //屏蔽网页
 			 "工具中心","帮助中心及意见反馈",
 			 //点击跳转到其他页面的按钮 不需要----
              "我要贷款","给我评分","清除文本"
+
+			 //测试屏蔽模块
 
 	 );
 
@@ -82,8 +76,10 @@ public class appiumAuto {
 	public static int getY = 32;
 	//遍历返回按钮
 	public static List<String> listback = Arrays.asList(
-			"Nav Back White","Nav Back Red","Nav Back","取消","DDSigninCloseBtn",
-            "Topic NavBack WhiteIcon","Topic NavBack WhiteShadowIcon","返回","Nav Close"
+
+			"Nav Back White","Nav Back Red","Nav More","Nav Back","Nav Close","返回","取消",
+			"Topic NavBack WhiteIcon","Topic NavBack WhiteShadowIcon","DDSigninCloseBtn"
+
     );
 
 
@@ -135,7 +131,29 @@ public static void ByXPathClick(String path) throws Exception {
 	  }
 
 
+	/**
+	 * 输入框 随机输入
+	 *
 
+	 * @throws Exception
+	 */
+	public static void ByXPathText(String path) throws Exception {
+		if( path !=null){
+			try{
+				Point location = driver.findElement(By.xpath(path)).getLocation();
+				Dimension size = driver.findElement(By.xpath(path)).getSize();
+				//点击之前先截图 画出要点击区域
+				iOSTratool.ScreenScr.getScreen(driver,location.getX(),location.getY(),size.getWidth(),size.getHeight());
+				WebElement element = driver.findElement(By.xpath(path));
+				FileOperation.contentToTxt(MainSetup.filetext, "--输入随机数--");
+				element.sendKeys(ement.getRandomCharAndNumr(30));
+			}catch (NoSuchElementException e) {
+
+				FileOperation.contentToTxt(MainSetup.filetext, "未找到点击控件："+path);
+			}
+		}
+		Thread.sleep(Waitsleep);
+	}
 
 
 /**
@@ -173,12 +191,16 @@ public static Boolean isElementBypxth(String path) throws Exception{
 				  }
 			  }
 		}
+
+
 		 //判断当前的控件是否存在  不存在则无效点击事件
+	      Coorlist.addAll(listll);
+	      Coorlist.addAll(listback);
 		  try{
 		      String text = driver.findElement(By.xpath(path)).getAttribute("label");
 		      if(text !=null)
 			  {
-                  for (Object aListll : listll) {
+                  for (Object aListll : Coorlist) {
                       try {
                           if (text.equals(aListll)) {
                               flagisElement = false;
@@ -186,7 +208,7 @@ public static Boolean isElementBypxth(String path) throws Exception{
                       } catch (Exception ignored) {
 
                       }
-			  }
+			  }Coorlist.clear();
 			  //根据右上方返回路径按钮点击无效  个人左上方返回按钮 没有名字通过路径防止点击事件
 			  String lipath = "/XCUIElementTypeApplication/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeNavigationBar/XCUIElementTypeButton";
 
@@ -337,7 +359,7 @@ public static String ElemtText(String path) throws Exception{
 
 
 /**
-* 判断是ElemtCell是否需要跳转
+* 判断是Elemt
  *
 
  * @return  返回 文本内容
@@ -491,7 +513,8 @@ public static void listNodes(Element node) throws Exception {
 			 	Tit.clear();
      		}
   	  //获取能点击的控件比如 Button / StaticText
-  	  if(attr.getValue().contains("Button") || attr.getValue().contains("StaticText") || attr.getValue().contains("TypeImage")){
+  	  if(attr.getValue().contains("Button") || attr.getValue().contains("StaticText") ||
+			  attr.getValue().contains("TypeImage")||attr.getValue().contains("TypeText")){
   		lister.add(attr.getValue());
   		String[] path=attr.getUniquePath().split("/AppiumAUT");
   		String[] list2=path[1].split("/@");
@@ -513,11 +536,11 @@ public static void listNodes(Element node) throws Exception {
   	 }
     for (int i =0; i<listerpath.size();i++) {
 		switch (lister.get(i)) {
+			//根据列表的 button 控件做点击事件
 			case "XCUIElementTypeButton":
-				//根据列表的button控件做点击事件
 				XCUIElemButton(listerpath.get(i));
 				break;
-			//根据列表的StaticText做点击事件
+			//根据列表的 StaticText 做点击事件
 			case "XCUIElementTypeStaticText":
 				XCUIElemStaticText(listerpath.get(i));
 				if (Tabflag) {
@@ -525,12 +548,19 @@ public static void listNodes(Element node) throws Exception {
 					Tabflag = false;
 					strflag = false;
 					return;
-				} else {
-					FileOperation.contentToTxt(MainSetup.filetext,"退出XCUIElementTypeStaticText");}
+				}
                 break;
+			//根据列表的 TypeImage 控件做点击事件
 			case "XCUIElementTypeImage":
-				//根据列表的button控件做点击事件
 				XCUIElemTypeImage(listerpath.get(i));
+				break;
+			//根据列表的 TextField 控件做点击事件
+			case  "XCUIElementTypeTextField":
+				XCUIElemTextField(listerpath.get(i));
+				break;
+			//根据列表的 TextView 控件做点击事件
+			case "XCUIElementTypeTextView":
+				XCUIElemTextField(listerpath.get(i));
 				break;
 		}
 	}
@@ -639,6 +669,24 @@ public static void XCUIElemTypeImage(String listerpath) throws Exception{
 	}
 
 }
+
+
+
+	/**
+	 *  StaticText click 点击 TextField 事件操作
+	 * @throws Exception
+	 */
+
+	public static void XCUIElemTextField(String listerpath) throws Exception{
+		//判断控件是否存在
+		if(isElementBypxth(listerpath)){
+			FileOperation.contentToTxt(MainSetup.filetext, "选择 TextField 名称");
+			FileOperation.contentToTxt(MainSetup.filetext, "清空原来的内容");
+			driver.findElement(By.xpath(listerpath)).clear();
+			//判断存在输入30个随机字符串
+			ByXPathText(listerpath);
+			}
+	}
 
 
 	/**

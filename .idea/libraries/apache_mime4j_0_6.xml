@@ -1,0 +1,52 @@
+<component name="libraryTable">
+  <library name="apache-mime4j-0.6">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/libs/apache-mime4j-0.6.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/bsh-1.3.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/cglib-nodep-2.1_3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/commons-codec-1.10.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/commons-collections-3.2.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/commons-exec-1.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/commons-io-2.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/commons-lang3-3.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/commons-logging-1.1.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/cssparser-0.9.16.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/dom4j-1.6.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/gson-2.3.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/guava-18.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/hamcrest-core-1.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/hamcrest-library-1.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/htmlunit-2.17.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/htmlunit-core-js-2.17.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/httpclient-4.4.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/httpcore-4.4.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/httpmime-4.4.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/java-client-3.1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/jcommander-1.29.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/jetty-io-9.2.11.v20150529.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/jetty-util-9.2.11.v20150529.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/jna-4.1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/jna-platform-4.1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/junit-dep-4.11.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/mysql-connector-java-3.1.14.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/nekohtml-1.9.22.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/netty-3.5.7.Final.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/phantomjsdriver-1.2.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/sac-1.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/selenium-java-2.46.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/serializer-2.7.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/testng-6.8.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/websocket-api-9.2.11.v20150529.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/websocket-client-9.2.11.v20150529.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/websocket-common-9.2.11.v20150529.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/xalan-2.7.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/xercesImpl-2.11.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/xml-apis-1.4.01.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/libs/java-client-3.1.0-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/libs/selenium-java-2.46.0-srcs.jar!/" />
+    </SOURCES>
+  </library>
+</component>
