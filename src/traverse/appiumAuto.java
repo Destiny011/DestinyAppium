@@ -4,6 +4,7 @@ import java.io.*;
 import java.util.*;
 
 import MainiOS.MainSetup;
+import iOSTratool.ScreenScr;
 import org.dom4j.Attribute;
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
@@ -17,7 +18,7 @@ import org.openqa.selenium.NoSuchElementException;
 public class appiumAuto {
 	 public static IOSDriver driver;
 	 //延迟  时间
-	 public static int Waitsleep = 2000;
+	 public static int Waitsleep = 1000;
 	 //获取xml路径内容 添加遍历的界面里
 	 public static ArrayList<String> Titlelist = new ArrayList<>();
 	 //获取NavigationBar
@@ -51,34 +52,21 @@ public class appiumAuto {
 	 public static ArrayList<String> Coorlist = new ArrayList<>();
 	 //遍历时屏蔽的按钮--黑名单
 	 public static List<String> listll = Arrays.asList(
-			 //搜索按钮
-			 "Dynamic Message SearchBar Icon","TopLine SearchBar White Icon","Message SearchIcon", "Message SearchBar Icon",
-			 "DDCircle SearchIcon White",
-			 //发现群
-			 "DongCircleSearch addButton",
-			 //屏蔽图片下载
-			 "MW Download Icon",
-			 //系统的图片/拍摄
-			 "Chat ToolBar Add","相册",
-			 //屏蔽 个人中心 相同功能的按钮  会点击两次的页面
-             "退出登录","手机号","昵称","获取验证码","密码","语音验证","简介：","修改",
-			 //屏蔽网页
-			 "工具中心","帮助中心及意见反馈",
-			 //点击跳转到其他页面的按钮 不需要----
-             "我要贷款","给我评分","清除文本"
-
 			 //测试屏蔽模块
+			 "发布","相册","Tag More a","清除文本","Nav More","等级 ￼","等级", "UserHead Icon"
 
 	 );
 
 	//返回按钮统一坐标屏蔽
-	public static int getX = 16;
-	public static int getY = 32;
+	public static int getX = 8,getXX =5;
+	public static int getY = 32,getYY=20;
 	//遍历返回按钮
 	public static List<String> listback = Arrays.asList(
+			"Nav Back","关闭","返回","取消","huaby"
 
-			"Nav Back White","Nav Back Red","Nav More","Nav Back","Nav Close","返回","取消",
-			"Topic NavBack WhiteIcon","Topic NavBack WhiteShadowIcon","DDSigninCloseBtn"
+			//咚咚客户端
+//			"Nav Back White","Nav Back Red","Nav More","Nav Back","Nav Close","返回","取消",
+//			"Topic NavBack WhiteIcon","Topic NavBack WhiteShadowIcon","DDSigninCloseBtn"
 
     );
 
@@ -91,21 +79,32 @@ public class appiumAuto {
  * @throws Exception
  */
 public static void go_back() throws Exception {
-	Thread.sleep(Waitsleep);
-	String xml = driver.getPageSource();
-    int i = 0;
-	while (i<listback.size()) {
-          String ele = listback.get(i);
-          if(xml.contains(ele))
-          {	  FileOperation.contentToTxt(MainSetup.filetext, ele ,1);
-              driver.findElement(By.name(ele)).click();
-              FileOperation.contentToTxt(MainSetup.filetext, "点击返回按钮:"+ele);
-			  gock = true;
-              Thread.sleep(Waitsleep);
-              return;
-		  }
-		i++;
-	}
+	FileOperation.contentToTxt(MainSetup.filetext, "" ,1);
+	String xml = DistriTest.xml(driver);
+	int i = 0;
+
+		gock = true;
+		while (i<listback.size()) {
+			String ele = listback.get(i);
+			if(xml.contains(ele) && !Objects.equals(ele, "取消"))
+			{
+				driver.tap(1, 25, 43, 1500);
+				FileOperation.contentToTxt(MainSetup.filetext, "点击返回按钮:" + ele);
+				Thread.sleep(1500);
+				return;
+			}else if(xml.contains(ele) && ele.equals("取消"))
+			{
+				driver.findElement(By.name("取消")).click();
+				FileOperation.contentToTxt(MainSetup.filetext, "点击返回按钮:" + ele);
+				Thread.sleep(1500);
+				return;
+			}
+			i++;
+		}
+		driver.tap(1, 25, 40, 1500);
+		FileOperation.contentToTxt(MainSetup.filetext, "返回按钮未录入数据");
+		return;
+
 	}
 
 /**
@@ -117,17 +116,23 @@ public static void go_back() throws Exception {
 public static void ByXPathClick(String path) throws Exception {
 	  	  	if( path !=null){
 	  	  		try{
-					Point location = driver.findElement(By.xpath(path)).getLocation();
-					Dimension size = driver.findElement(By.xpath(path)).getSize();
+					System.out.println("获取控件时间: "+ScreenScr.ScreenTime());
+					WebElement dv = driver.findElement(By.xpath(path));
+					System.out.println("获取控件结束: "+ScreenScr.ScreenTime());
 					//点击之前先截图 画出要点击区域
-					iOSTratool.ScreenScr.getScreen(driver,location.getX(),location.getY(),size.getWidth(),size.getHeight());
-	  	  			driver.findElement(By.xpath(path)).click();
+					iOSTratool.ScreenScr.getScreen(driver,
+							dv.getLocation().getX(),dv.getLocation().getY(),
+							dv.getSize().getWidth(),dv.getSize().getHeight());
+						//画出区域后就点击该事件
+						System.out.println("点击开始时间: "+ScreenScr.ScreenTime());
+						dv.click();
+						System.out.println("点击结束时间: "+ScreenScr.ScreenTime());
 	  	  			}catch (NoSuchElementException e) {
-
 	  	  				FileOperation.contentToTxt(MainSetup.filetext, "未找到点击控件："+path);
 	  	  			}
 			}
 	  	  	Thread.sleep(Waitsleep);
+
 	  }
 
 
@@ -138,13 +143,16 @@ public static void ByXPathClick(String path) throws Exception {
 	 * @throws Exception
 	 */
 	public static void ByXPathText(String path) throws Exception {
+		System.out.println("ByXPathText判断开始时间: "+ScreenScr.ScreenTime());
 		if( path !=null){
 			try{
-				Point location = driver.findElement(By.xpath(path)).getLocation();
-				Dimension size = driver.findElement(By.xpath(path)).getSize();
-				//点击之前先截图 画出要点击区域
-				iOSTratool.ScreenScr.getScreen(driver,location.getX(),location.getY(),size.getWidth(),size.getHeight());
 				WebElement element = driver.findElement(By.xpath(path));
+				//清空数据源
+				element.clear();
+				//点击之前先截图 画出要点击区域
+				iOSTratool.ScreenScr.getScreen(driver,
+						element.getLocation().getX(),element.getLocation().getY(),
+						element.getSize().getWidth(),element.getSize().getHeight());
 				FileOperation.contentToTxt(MainSetup.filetext, "--输入随机数--");
 				element.sendKeys(ement.getRandomCharAndNumr(30));
 			}catch (NoSuchElementException e) {
@@ -152,7 +160,7 @@ public static void ByXPathClick(String path) throws Exception {
 				FileOperation.contentToTxt(MainSetup.filetext, "未找到点击控件："+path);
 			}
 		}
-		Thread.sleep(Waitsleep);
+		System.out.println("判断结束时间: "+ScreenScr.ScreenTime());
 	}
 
 
@@ -167,10 +175,10 @@ public static void ByClick(String path) throws Exception {
 				driver.findElement(By.xpath(path)).click();
 			}catch (NoSuchElementException e) {
 				FileOperation.contentToTxt(MainSetup.filetext, "未找到点击控件："+path);
-				PrintWriter p = new PrintWriter(new FileOutputStream(MainSetup.filetext+"/error.txt"));
+				PrintWriter p = new PrintWriter(new FileOutputStream(MainSetup.logpat+"/"+ ement.getRandomCharAndNumr(4)+"errorClick.txt"));
 				e.printStackTrace(p);
-			}}
-		Thread.sleep(Waitsleep);
+			}
+		}
 	}
 /**
  * 判断控件是否存在
@@ -178,8 +186,7 @@ public static void ByClick(String path) throws Exception {
 
  * @throws Exception
  */
-public static Boolean isElementBypxth(String path) throws Exception{
-
+public static Boolean isElementBypxth(String path,String text) throws Exception{
 		  boolean flagisElement = true;
 		  //获取已点击过的path绝对路径  查看当前是否有点击过的 点击过的不再点击
 		  if(!StaticText.isEmpty())
@@ -191,13 +198,10 @@ public static Boolean isElementBypxth(String path) throws Exception{
 				  }
 			  }
 		}
-
-
 		 //判断当前的控件是否存在  不存在则无效点击事件
 	      Coorlist.addAll(listll);
 	      Coorlist.addAll(listback);
 		  try{
-		      String text = driver.findElement(By.xpath(path)).getAttribute("label");
 		      if(text !=null)
 			  {
                   for (Object aListll : Coorlist) {
@@ -206,20 +210,17 @@ public static Boolean isElementBypxth(String path) throws Exception{
                               flagisElement = false;
                           }
                       } catch (Exception ignored) {
-
-                      }
+					  }
 			  }Coorlist.clear();
 			  //根据右上方返回路径按钮点击无效  个人左上方返回按钮 没有名字通过路径防止点击事件
 			  String lipath = "/XCUIElementTypeApplication/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeNavigationBar/XCUIElementTypeButton";
-
-			   if(path.equals(lipath))
+			  if(path.equals(lipath))
 			   	{flagisElement=false;}}
 		      }catch (Exception e) {
 			  e.printStackTrace();
 		    	 FileOperation.contentToTxt(MainSetup.filetext, "未找到该元素控件"+path);
 		    	 flagisElement = false;
 			}
-
 	    return flagisElement;
 	  }
 
@@ -232,14 +233,17 @@ public static Boolean isElementBypxth(String path) throws Exception{
  */
 public static Boolean isElementText(String path,String text,String xll) throws Exception{
 		  boolean flag = true;
+
 		  if(ement.issElement(path,driver))
 		  {
-			  if(ement.issElement(path, text,driver)&&text!=null){
+			  if(ement.issElement(path,text,driver)&&text!=null){
 				  FileOperation.contentToTxt(MainSetup.filetext, "控件存在 页面未跳转成功1");
 			  }else{
+
 				  String txt = driver.findElement(By.xpath(path)).getAttribute("label");
 				  double result=similarityResult.SimilarDegree(ement.cnToUnicode(text),ement.cnToUnicode(txt));
-				  String xml = driver.getPageSource();
+				  String xml = DistriTest.xml(driver);
+
 				  if(result >= 0.8){
 					  FileOperation.contentToTxt(MainSetup.filetext, "控件存在--页面未跳转成功2");
 				  }
@@ -248,7 +252,9 @@ public static Boolean isElementText(String path,String text,String xll) throws E
 				  }
 				  else{
 					  FileOperation.contentToTxt(MainSetup.filetext, "控件名称有误 发出遍历请求");
-				  flag = false;}}
+					  flag = false;
+				  }
+			  }
 		  }else{
 			  //控件不存在 判断是否在原来的界面 判断标题
 			  if(GetTitle()){
@@ -260,7 +266,7 @@ public static Boolean isElementText(String path,String text,String xll) throws E
 			  }
 
 		  }
-	return flag;
+	    	return flag;
 }
 
 	/**
@@ -269,7 +275,7 @@ public static Boolean isElementText(String path,String text,String xll) throws E
 	 * @throws Exception
 	 */
 	public static Boolean GetTitle() throws Exception{
-		String xml = driver.getPageSource();
+		String xml = DistriTest.xml(driver);
 		System.out.println("type=\"XCUIElementTypeNavigationBar\" name=\""+TitlE+"\"");
 		return xml.contains(TitlE) && xml.contains("type=\"XCUIElementTypeNavigationBar\" name=\""+TitlE+"\"") ;
 
@@ -288,8 +294,8 @@ public static Boolean isElementxpthText(String path,String text,String xll) thro
 		  if(text!=null ){
 			  if(HasDigit.getNumbers(text))
 			  {
-				  driver.findElementByXPath(path);
-				  String xml = driver.getPageSource();
+				  WebElement et =driver.findElementByXPath(path);
+				  String xml = DistriTest.xml(driver);
 				  if(listdiff(xll).equals(listdiff(xml)))
 				  {
 					  FileOperation.contentToTxt(MainSetup.filetext, "Text存在 页面未跳转成功--1");
@@ -433,7 +439,7 @@ public static boolean TitleCycleText(String path,ArrayList<String> Tvalue) throw
 	if(!Tvalue.isEmpty()){
 		for(String value : Tvalue){
 				if(path.equals(value)){
-					FileOperation.contentToTxt(MainSetup.filetext, "存在遍历 :"+value,1);
+					FileOperation.contentToTxt(MainSetup.filetext, "存在遍历 :"+value);
 				return true;
 			}
 		}
@@ -483,7 +489,7 @@ public static boolean TitleCycleTextString(String path) throws Exception{
 
 * @throws Exception
  */
-public static void listNodes(Element node) throws Exception {
+public static void listNodes(Element node,String xll) throws Exception {
 	//直接退出控件点击循环
 	if(!strflag)return;
 	Tit.clear();
@@ -514,15 +520,15 @@ public static void listNodes(Element node) throws Exception {
      		}
   	  //获取能点击的控件比如 Button / StaticText
   	  if(attr.getValue().contains("Button") || attr.getValue().contains("StaticText") ||
-			  attr.getValue().contains("TypeImage")||attr.getValue().contains("TypeText")){
+			  attr.getValue().contains("TypeImage")||attr.getValue().contains("TypeText"))
+	  {
   		lister.add(attr.getValue());
   		String[] path=attr.getUniquePath().split("/AppiumAUT");
   		String[] list2=path[1].split("/@");
   		//判断是否在屏幕的坐标内 在屏幕的坐标内按钮添加到列表
 		if(ScreenShot(list2[0])){
-  			listerpath.add(list2[0]);
-  		}
-  		//判断这些控件的直接退出循环 不再往下查找数据 下面的数据都是系统控件 不用再去匹配
+  			listerpath.add(list2[0]);}
+		//判断这些控件的直接退出循环 不再往下查找数据 下面的数据都是系统控件 不用再去匹配
   	  }
 	  else if (attr.getValue().contains("TypeTabBar")||attr.getValue().contains("TypeKeyboard")){
 		  strflag = false;
@@ -534,31 +540,37 @@ public static void listNodes(Element node) throws Exception {
   	  		Tit.add(attr.getValue());
 	  }
   	 }
-    for (int i =0; i<listerpath.size();i++) {
+
+	if(!listerpath.isEmpty()) for (int i = 0; i < listerpath.size(); i++) {
 		switch (lister.get(i)) {
 			//根据列表的 button 控件做点击事件
 			case "XCUIElementTypeButton":
-				XCUIElemButton(listerpath.get(i));
-				break;
-			//根据列表的 StaticText 做点击事件
-			case "XCUIElementTypeStaticText":
-				XCUIElemStaticText(listerpath.get(i));
+				XCUIElemButton(listerpath.get(i),xll);
 				if (Tabflag) {
-					System.out.println("退出上一个页面的循环");
+					System.out.println("退出Button页面的循环");
 					Tabflag = false;
 					strflag = false;
 					return;
 				}
-                break;
+				break;
+			//根据列表的 StaticText 做点击事件
+			case "XCUIElementTypeStaticText":
+				XCUIElemStaticText(listerpath.get(i),xll);
+				if (Tabflag) {
+					System.out.println("退出StaticText页面的循环");
+					Tabflag = false;
+					strflag = false;
+					return;}
+				break;
 			//根据列表的 TypeImage 控件做点击事件
 			case "XCUIElementTypeImage":
 				XCUIElemTypeImage(listerpath.get(i));
 				break;
-			//根据列表的 TextField 控件做写入事件
-			case  "XCUIElementTypeTextField":
+			//根据列表的 TextField 控件做点击事件
+			case "XCUIElementTypeTextField":
 				XCUIElemTextField(listerpath.get(i));
 				break;
-			//根据列表的 TextView 控件做写入事件
+			//根据列表的 TextView 控件做点击事件
 			case "XCUIElementTypeTextView":
 				XCUIElemTextField(listerpath.get(i));
 				break;
@@ -572,53 +584,32 @@ public static void listNodes(Element node) throws Exception {
         // 获取某个子节点对象
         Element e = it.next();
         // 对子节点进行遍历
-        listNodes(e);
+        listNodes(e,xll);
     }
 
 }
-/**
- *  Taberror 进行判断
- *  @throws Exception
- */
-private static Boolean XCUIElemTaB()throws Exception{
-	if(!Taberror){
-		Taberror = true;
-	}
-	else if(Typecellcal<=20){
-		Typecellcal += 1;
-		return true;
-	}
-	else{
-		strflag = false;
-		Typecellcal = 1;
-		return true;
-	}
-	return false;
-}
 
 
-
-/**
+	/**
  *  button click 点击Butto事件操作
  *
  * @throws Exception
  */
-public static void XCUIElemButton(String listerpath) throws Exception{
-
-	if(isElementBypxth(listerpath)){ //判断控件是否存在
-		String text = appiumAuto.ElemtText(listerpath);//获取控件name
+public static void XCUIElemButton(String listerpath,String xll) throws Exception{
+	String text = appiumAuto.ElemtText(listerpath);//获取控件name
+	if(isElementBypxth(listerpath,text)){ //判断控件是否存在
 		FileOperation.contentToTxt(MainSetup.filetext, "点击Button名称 ："+text);
-		String xll = driver.getPageSource();
 		ByXPathClick(listerpath); //点击button控件--没有则断言继续执行
 			StaticText.add(listerpath);
 		if(!isElementText(listerpath,text,xll)&& !Objects.equals(text, "")){//判断当前控件不在页面内 重新遍历
 			FileOperation.contentToTxt(MainSetup.filetext,"未找到原来的控件/准备遍历元素 : " +text);
 			ListSaved();
+		}else
+		{	ByClick(listerpath);
+			if(!diffStaticText(xll))diffStat();
+			else Tabflag = false;
 		}
-		else {
-			ByClick(listerpath);
-			diffStat();
-		}}
+	}
 }
 
 
@@ -628,11 +619,11 @@ public static void XCUIElemButton(String listerpath) throws Exception{
  *  StaticText click 点击StaticText事件操作
  * @throws Exception
  */
-public static void XCUIElemStaticText(String listerpath) throws Exception{
-	if(isElementBypxth(listerpath)){ //判断控件是否存在
-		String text = appiumAuto.ElemtText(listerpath);//获取控件name
+public static void XCUIElemStaticText(String listerpath,String xll) throws Exception{
+	System.out.println("XCUIElemStaticText   判断开始时间: "+ScreenScr.ScreenTime());
+	String text = appiumAuto.ElemtText(listerpath);//获取控件name
+	if(isElementBypxth(listerpath,text)){ //判断控件是否存在
 		FileOperation.contentToTxt(MainSetup.filetext, "点击StaticText名称 ："+text);
-		String xll = driver.getPageSource();
 		ByXPathClick(listerpath); //点击StaticText控件--没有则断言继续执行;
 			StaticText.add(listerpath);
 			//判断当前控件不在页面内 重新遍历
@@ -645,6 +636,7 @@ public static void XCUIElemStaticText(String listerpath) throws Exception{
 			else
 			{Tabflag = false;}
 	}
+	System.out.println("XCUIElemStaticText   判断结束时间: "+ScreenScr.ScreenTime());
 }
 
 
@@ -655,7 +647,7 @@ public static void XCUIElemStaticText(String listerpath) throws Exception{
 	 */
 
 public static void XCUIElemTypeImage(String listerpath) throws Exception{
-	if(isElementBypxth(listerpath)){ //判断控件是否存在
+	if(isElementBypxth(listerpath,null)){ //判断控件是否存在
 		FileOperation.contentToTxt(MainSetup.filetext, "点击Image名称");
 		Point location = driver.findElement(By.xpath(listerpath)).getLocation();
 		ByXPathClick(listerpath); //点击Image控件--没有则断言继续执行;
@@ -679,12 +671,13 @@ public static void XCUIElemTypeImage(String listerpath) throws Exception{
 
 	public static void XCUIElemTextField(String listerpath) throws Exception{
 		//判断控件是否存在
-		if(isElementBypxth(listerpath)){
+		if(isElementBypxth(listerpath,null)){
 			FileOperation.contentToTxt(MainSetup.filetext, "选择 TextField 名称");
 			FileOperation.contentToTxt(MainSetup.filetext, "清空原来的内容");
-			driver.findElement(By.xpath(listerpath)).clear();
+			StaticText.add(listerpath);
 			//判断存在输入30个随机字符串
 			ByXPathText(listerpath);
+			driver.tap(1,width-30,height-20,1000);
 			}
 	}
 
@@ -697,13 +690,16 @@ public static void XCUIElemTypeImage(String listerpath) throws Exception{
 	public static void diffStat() throws Exception{
 				//发现数据不一致  重新获取遍历节点
 				FileOperation.contentToTxt(MainSetup.filetext, "----重新获取元素----");
-				String xml = driver.getPageSource();
+				String xml = DistriTest.xml(driver);
 				Document document = DocumentHelper.parseText(xml);
 				//获取根节点元素对象
 				Element node = document.getRootElement();
 				WhiteIcon = false;
 				strflag=true;
-				listNodes(node);
+				int T = Typecellcal;
+				Typecellcal =0;
+				listNodes(node,xml);
+				Typecellcal= T;
 				Tabflag = true;
 				WhiteIcon = true;
 
@@ -734,7 +730,8 @@ public static void ListSaved() throws Exception{
 public static boolean diffStaticText(String xll) throws Exception{
 	Boolean flag = false;
 	Thread.sleep(Waitsleep);
-	String xxll = driver.getPageSource();
+	System.out.println("数据对比测试");
+	String xxll = DistriTest.xml(driver);
 		if(listdiff(xll).equals(listdiff(xxll)))
 		{flag = true;}
 	return flag;
@@ -845,7 +842,6 @@ public static Boolean ScreenShot(String path) throws InterruptedException, FileN
 			//获取遍历过的控件
 			for(String value : StaticText){
 				if(path.equals(value)){
-					Taberror = false;
 					return false;
 				}
 			}
@@ -855,12 +851,13 @@ public static Boolean ScreenShot(String path) throws InterruptedException, FileN
 	try{
 		Point location = driver.findElement(By.xpath(path)).getLocation();
 		FileOperation.contentToTxt(MainSetup.filetext, "按钮坐标 getX: "+location.getX()+" getY: "+location.getY(),1);
-			if(location.getX()<=width && location.getY() < height && location.getX()>=0 && location.getY() >= 0)
+			if(location.getX()<=width-40 && location.getY() < height-60 && location.getX()>=0 && location.getY() >= 0)
 			{
 				if (location.getX() != 0 && location.getY() != 0) {
 					//屏蔽返回按钮的坐标
-					if(location.getX()==getX && location.getY()== getY){
+					if((location.getX()==getX && location.getY()== getY)||(location.getX()==getXX && location.getY()== getYY)){
 						FileOperation.contentToTxt(MainSetup.filetext, "坐标为返回按钮 不点击该事件");
+						return false;
 					}else {
 						flag2 = true;
 					}
@@ -879,7 +876,7 @@ public static Boolean ScreenShot(String path) throws InterruptedException, FileN
 		}
 	catch (Exception e) {
 		FileOperation.contentToTxt(MainSetup.filetext, "xpath出现问题,请查看对应的路径是否存在");
-		PrintWriter p = new PrintWriter(new FileOutputStream(MainSetup.cyrPatn+"/error2.txt"));
+		PrintWriter p = new PrintWriter(new FileOutputStream(MainSetup.logpat+"/"+ ement.getRandomCharAndNumr(4)+"errorXpath.txt"));
 		e.printStackTrace(p);
 		}
 	return flag2;

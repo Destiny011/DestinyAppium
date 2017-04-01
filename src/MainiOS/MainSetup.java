@@ -16,10 +16,12 @@ import java.net.URL;
 public class MainSetup {
     public static IOSDriver driver;
     public static String filetext = "";
-    public static  int appclose = 1;
+    public static  int appclose = 0;
+    public static String logpat = "";
 
 
-    public static String cyrPatn = "/Users/zhangzhixiong/Documents/AppiumPng";
+    public static String cyrPatn2 = "/Users/zhangzhixiong/Documents/AppiumPng";
+    public static String cyrPatn = "",cyrPatn3 = "";
     @BeforeMethod
     public void beforeMethod() throws Exception {
         if (appclose > 0)
@@ -50,10 +52,10 @@ public class MainSetup {
         capabilities.setCapability("deviceName", "iPhone 5s");
         capabilities.setCapability("platformVersion", "10.1");
         capabilities.setCapability("platformName", "iOS");
-        capabilities.setCapability("bundleId", "com.cc.cc");
+        capabilities.setCapability("bundleId", "com.szhome.SZHomeForum");
         capabilities.setCapability("locationServicesAuthorized", true);
         capabilities.setCapability("waitForAppScript", "$.delay(5000); $.acceptAlert(); true;");
-        capabilities.setCapability("app", "*****");
+        capabilities.setCapability("app", "/Users/zhangzhixiong/项目/家在深圳/Build/Products/Debug-iphoneos/SZHomeForum.app");
         capabilities.setCapability("autoAcceptAlerts", false);
         capabilities.setCapability("udid", "b5109a245a39d8eef252ee75887badfe26c4a9f2");
         //b5109a245a39d8eef252ee75887badfe26c4a9f2
@@ -61,7 +63,7 @@ public class MainSetup {
         capabilities.setCapability("logLevel", "DEBUG");
         capabilities.setCapability("automationName", "XCUITest");  // 新的IOS10
         driver=new IOSDriver(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
-        System.out.println("启动程序app成功");
+        System.out.println("启动知乎app成功");
 
         //driveriver 传入appiumauto类
         appiumAuto.driver = driver;
@@ -69,11 +71,14 @@ public class MainSetup {
         //获取设备高度和宽度
         appiumAuto.Heiwidth();
         //图片存放处
-        MainSetup.cyrPatn = MainSetup.cyrPatn+"/"+ScreenScr.ScreenTime();
+        cyrPatn3 = cyrPatn2+"/"+ScreenScr.ScreenTime();
         //日志存放处
-        filetext = MainSetup.cyrPatn+"/logiOS.txt";
+        filetext = cyrPatn3+"/logiOS.txt";
+        logpat = cyrPatn3+"/logpath";
         //创建目录
-        FileOperation.createDir(MainSetup.cyrPatn);
+        FileOperation.createDir(cyrPatn3);
+        //创建日志文件目录
+        FileOperation.createDir(logpat);
     }
 
     @AfterClass
@@ -87,8 +92,8 @@ public class MainSetup {
      */
     @Test
     public void test_01() throws Exception{
-        MainSetup.cyrPatn = MainSetup.cyrPatn+"/"+"头条";
-        driver.findElement(By.name("头条")).click();
+        cyrPatn = cyrPatn3+"/"+"首页";
+        driver.findElement(By.name("首页")).click();
         Thread.sleep(2000);
         DistriTest.Traverse(driver);
     }
@@ -98,8 +103,8 @@ public class MainSetup {
      */
     @Test
     public void test_02() throws Exception{
-        MainSetup.cyrPatn = MainSetup.cyrPatn+"/"+"消息";
-       driver.findElement(By.name("消息")).click();
+        cyrPatn = cyrPatn3+"/"+"社区";
+       driver.findElement(By.name("社区")).click();
         Thread.sleep(2000);
         DistriTest.Traverse(driver);
     }
@@ -109,8 +114,8 @@ public class MainSetup {
      */
     @Test
     public void test_03() throws Exception{
-        MainSetup.cyrPatn = MainSetup.cyrPatn+"/"+"找房";
-        driver.findElement(By.name("找房")).click();
+        cyrPatn = cyrPatn3+"/"+"消息";
+        driver.findElement(By.name("消息")).click();
         Thread.sleep(2000);
         DistriTest.Traverse(driver);
     }
@@ -120,8 +125,8 @@ public class MainSetup {
      */
     @Test
     public void test_04() throws Exception{
-        MainSetup.cyrPatn = MainSetup.cyrPatn+"/"+"咚圈";
-        driver.findElement(By.name("咚圈"))   .click();
+        cyrPatn = cyrPatn3+"/"+"我家";
+        driver.findElement(By.name("我家"))   .click();
         Thread.sleep(2000);
         DistriTest.Traverse(driver);
     }

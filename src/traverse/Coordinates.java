@@ -2,8 +2,10 @@ package traverse;
 
 import static org.junit.Assert.*;
 
+import MainiOS.MainSetup;
 import org.dom4j.io.SAXReader;
 import org.junit.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
 
@@ -40,7 +42,7 @@ public class Coordinates {
 //			}
 //
 //		}
-		
+
 //	    BufferedImage originalImage =
 //	    ImageIO.read(new ByteArrayInputStream(takeScreenshot()));
 //	  // 截取webElement所在位置的子图。
@@ -49,10 +51,10 @@ public class Coordinates {
 //	      location.getY(),
 //	      size.getWidth(),
 //	      size.getHeight());
-//  	File screenShotFile =  ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);  
-  	
+//  	File screenShotFile =  ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+
 //	case "XCUIElementTypeCell2":
-//			if (Typecellcal<3){ 
+//			if (Typecellcal<3){
 //				int op = Typecellcal;
 //				FileOperation.contentToTxt(DongDongkeyword.filetext, "Typecellcal :"+ Typecellcal);
 //				XCUIElemCell(listerpath.get(i));
@@ -60,20 +62,20 @@ public class Coordinates {
 //				Typecellcal++;
 //			}
 //			break;
-		
-//		
-//		/** 
-//		 * 判断是xpthCell是否存在 和遍历  
-//		 * @param node 
-//		 * @throws Exception 
-//		 */  
+
+//
+//		/**
+//		 * 判断是xpthCell是否存在 和遍历
+//		 * @param node
+//		 * @throws Exception
+//		 */
 //		public static Boolean isElementxpthCell(String path,String text) throws Exception{
-//			Thread.sleep(Waitsleep);  
+//			Thread.sleep(Waitsleep);
 //			boolean flag = true;
 //			  try{
 //					  WebElement element=(WebElement) driver.findElementByXPath(path);
 //					  String Static = appiumAuto.ElemtCell(path);
-//			
+//
 //					  if(text.equals(Static))
 //					  {	  flag =true;
 //					  		String xml = driver.getPageSource();
@@ -88,22 +90,22 @@ public class Coordinates {
 //				      } else
 //				      {	  FileOperation.contentToTxt(DongDongkeyword.filetext,"跳转到2:" + text);
 //				    	  flag = false;}
-//					  
-//					 
-//				  }catch (Exception a){   
+//
+//
+//				  }catch (Exception a){
 //				  			flag = false;
 //				  }
 //			  return flag;
 //		}
-		
-		
-//		/** 
+
+
+//		/**
 //		*  button click 点击Cell事件操作
-//		 * 
-//		 * @param node 
-//		 * @return 
-//		 * @throws Exception 
-//		 */  
+//		 *
+//		 * @param node
+//		 * @return
+//		 * @throws Exception
+//		 */
 //		public static void XCUIElemCell(String listerpath) throws Exception{
 //			Thread.sleep(Waitsleep);
 //			String text = appiumAuto.ElemtCell(listerpath);//获取Cell下第一个StaticText名称
@@ -112,29 +114,29 @@ public class Coordinates {
 //				appiumAuto.ByXPathClick(listerpath); //点击button控件--没有则断言继续执行
 //				if(CellClick())
 //				{Thread.sleep(Waitsleep);
-//				
+//
 //				if(!appiumAuto.isElementxpthCell(listerpath,text)&&text!=""){//判断当前控件不在页面内 重新遍历
 //					FileOperation.contentToTxt(DongDongkeyword.filetext,"未找到原来的控件/准备遍历元素 : " +text);
 //					DongDongkeyword.Dongdongtest002();
 //					}
 //				}}
-//		}	
-		
-		
-//		/** 
+//		}
+
+
+//		/**
 //		*  用于判断 点击没反应的界面
-//		 * 
-//		 * @param node 
-//		 * @return 
-//		 * @throws Exception 
-//		 */  
+//		 *
+//		 * @param node
+//		 * @return
+//		 * @throws Exception
+//		 */
 //
 //		public static Boolean CellClick() throws Exception{
 //			   Boolean flag = false;
 //				String xml = driver.getPageSource();
 //				String xll =appiumAuto.listdiff(xml);
 //				if(xll.equals(DongDongkeyword.xmlle))
-//				{  
+//				{
 //					FileOperation.contentToTxt(DongDongkeyword.filetext, "控件点击没有跳转页面-进行操作下一个");
 //					flag =  false;
 //					}else{
@@ -142,8 +144,8 @@ public class Coordinates {
 //			Dimension size = element.getSize();
 //			return flag;
 //		}
-		
-		
+
+
 	////判断是否在屏幕的坐标范围内
 		//public static Boolean ScreenShot(String path) throws InterruptedException{
 //			Boolean flag = false;
@@ -155,7 +157,7 @@ public class Coordinates {
 //				  if(location.getY() <height-60 && location.getY() >=0){
 //					  	flag = true;
 //				  	}
-//				 } 
+//				 }
 //			return flag;
 		//}
 	}
@@ -174,4 +176,20 @@ public class Coordinates {
 //		xmlle = path;gock = false;
 //	}
 
+
+	//返回按钮
+//	String xml = driver.getPageSource();
+//	int i = 0;
+//	while (i<listback.size()) {
+//		String ele = listback.get(i);
+//		if(xml.contains(ele))
+//		{	  FileOperation.contentToTxt(MainSetup.filetext, ele ,1);
+//			driver.findElement(By.name(ele)).click();
+//			FileOperation.contentToTxt(MainSetup.filetext, "点击返回按钮:"+ele);
+//			gock = true;
+//			Thread.sleep(Waitsleep);
+//			return;
+//		}
+//		i++;
+//	}
 }

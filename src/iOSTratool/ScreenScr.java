@@ -10,6 +10,7 @@ import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import traverse.FileOperation;
+import traverse.ement;
 
 import java.util.Date;
 import java.text.SimpleDateFormat;
@@ -47,7 +48,6 @@ public class ScreenScr  {
             int[] xPoints = {x*2,x*2,(x+width)*2,(x+width)*2};
             int[] yPoints = {y*2,(y+height)*2,(y+height)*2,y*2};
             String path =MainSetup.cyrPatn+"/Png/img"+ScreenTime()+".png";
-            Thread.sleep(1000);
             drawPolygon(path,xPoints,yPoints,path);
         }
     }
@@ -82,7 +82,7 @@ public class ScreenScr  {
             g2d.dispose();
         } catch (Exception e) {
             FileOperation.contentToTxt(MainSetup.filetext,"编辑图片失败");
-            PrintWriter p = new PrintWriter(new FileOutputStream(MainSetup.cyrPatn+"/error.txt"));
+            PrintWriter p = new PrintWriter(new FileOutputStream(MainSetup.logpat+"/"+ ement.getRandomCharAndNumr(4)+"errorSrec.txt"));
             e.printStackTrace(p);
         }finally{
             if(fos!=null){

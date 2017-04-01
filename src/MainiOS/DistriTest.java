@@ -6,23 +6,28 @@ import io.appium.java_client.ios.IOSDriver;
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
-import org.dom4j.io.SAXReader;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebDriver;
 import traverse.FileOperation;
 import traverse.appiumAuto;
-import traverse.similarityResult;
+import traverse.ement;
+
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
+import java.util.concurrent.TimeUnit;
 
 public class DistriTest {
-    public static int Waitsleep = 5000;
+    public static int Waitsleep = 4000;
     public static String xmll="",xmlle="",xmllle="",path="";
     public static boolean gock = true;
 
 
     public static void Traverse(IOSDriver driver) throws Exception{
+        String xml = "1111111";
         Thread.sleep(Waitsleep);
         //清空 StaticText 的记录
         appiumAuto.StaticText.clear();
-        String  xml= driver.getPageSource();
-        //FileOperation.contentToTxt(MainSetup.filetext,xml,1);
+        xml =xml(driver);
         path =appiumAuto.listdiff(xml);
         Document document = DocumentHelper.parseText(xml);
         //获取根节点元素对象
@@ -35,9 +40,9 @@ public class DistriTest {
             appiumAuto.SystemButton2();
         }
         //再次判断xml是否与上次获取的xml相同 且存在一样的标题
-        else if(xmllle.equals(path) && appiumAuto.diffNavigationBar(node)){
-            FaceJudge(xml);
-        }
+//        else if(xmllle.equals(path) && appiumAuto.diffNavigationBar(node)){
+//            FaceJudge(xml);
+//        }
         //判断path是否存在我们的界面数组里面
         else if(appiumAuto.TitleCycleTextString(path)){
             System.out.println("相似度高点击返回按钮");
@@ -50,7 +55,7 @@ public class DistriTest {
         }
         //执行遍历
         else{
-            program(node);
+            program(node,xml);
         }
     }
 
@@ -66,7 +71,6 @@ public class DistriTest {
             //在判断Titlelist 列表内是否存在重复的xmll
             if(appiumAuto.TitleCycleText(path,appiumAuto.Titlelist) && appiumAuto.gock ){
                     appiumAuto.go_back();
-                    appiumAuto.gock = false;
             }else{
                 FileOperation.contentToTxt(MainSetup.filetext, "遍历存在且不需要点击返回按钮");
                 appiumAuto.strflag = false;
@@ -77,7 +81,7 @@ public class DistriTest {
     }
 
     //执行遍历程序
-    public static void program(Element node) throws Exception{
+    public static void program(Element node,String xml) throws Exception{
         //添加遍历出来的整个列表内容
         appiumAuto.Titlelist.add(xmll);
         FileOperation.contentToTxt(MainSetup.filetext, "遍历所有的元素节点");
@@ -87,7 +91,7 @@ public class DistriTest {
         appiumAuto.strflag = true;
         appiumAuto.WhiteIcon = true;
         //遍历所有的元素节点
-        appiumAuto.listNodes(node);
+        appiumAuto.listNodes(node,xml);
         appiumAuto.Typecellcal = 1;
         appiumAuto.StaticText.clear();
         if(gock){
@@ -97,4 +101,18 @@ public class DistriTest {
         gock = true;
         appiumAuto.strflag = true;
     }
+
+    public  static String xml(WebDriver driver) throws Exception{
+        String xml = "";
+        try{
+            driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
+            xml= driver.getPageSource();
+        }catch (NoSuchElementException e){
+            PrintWriter p = new PrintWriter(new FileOutputStream(MainSetup.logpat+"/"+ ement.getRandomCharAndNumr(4)+"error.txt"));
+            e.printStackTrace(p);
+        }
+        return xml;
+    }
+
 }
+
